@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.556.0",
     "axios": "^0.19.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.6",
@@ -21,13 +22,14 @@
     "react-modal": "^3.9.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "video-indexer": "^1.0.0"
+    "video-indexer": "^1.0.0",
+    "video.js": "^7.6.5"
   },
   "scripts": {
     "webpack": "webpack",
     "start": "npm run webpack && nodemon --exec babel-node -- bin/www"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.9"
   }
 }
