@@ -6,7 +6,7 @@ import AWS from 'aws-sdk';
 class App extends React.Component {
   constructor(){
     super();
-    this.state ={ videoUrl:""};
+    this.state ={ videoUrl:''};
     this.handleClick = this.handleClick.bind(this);
 
   
@@ -14,7 +14,7 @@ class App extends React.Component {
 
   
   handleClick() {
-   
+    const { videoUrl } = this.state;  
 
 
     AWS.config.update({
@@ -31,12 +31,16 @@ class App extends React.Component {
     };
     var url = s3.getSignedUrl('getObject', params);
     var index = url.indexOf("?");
-    this.videoUrl = url.substring(0, index);
+    url = url.substring(0, index);
+    this.videoUrl = url;
+    
+    this.setState({videoUrl:url});
     console.log('The URL is', this.videoUrl);
 
   }
   
   render(){
+    const {videoUrl} = this.state;
     return (
         <div className="si-body">
           <div className="si-header">
