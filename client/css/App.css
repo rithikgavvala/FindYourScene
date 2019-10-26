@@ -22,6 +22,54 @@
 .App-link {
   color: #61dafb;
 }
+.si-body{
+  margin-left: -10px; 
+  margin-right: -10px;
+  font-family: Avenir;
+  background-color: #cecece;
+  height: 100vh;
+}
+
+.si-header {
+  margin-left: -10px; 
+  margin-right: -10px;
+  margin-top: -10px; 
+  height: 64px;
+  background-color: #63ca9c;
+  border-bottom: 1px solid #949494; 
+  box-shadow: 0 0 20px gray;
+}
+
+.si-header2{
+  font-size: 22px;
+  float: top;
+  font-family: Avenir;
+  padding-bottom: 10px;
+
+
+}
+
+
+.si-logo {
+  padding-top: 15px;
+  padding-left: 20px;
+  vertical-align: center;
+  font-family: Avenir;
+  font-size: 30px;
+  color:#f4f4f4;
+
+}
+
+.si-media-body{
+  margin-left:20px;
+  margin-top: 20px;
+}
+
+.si-video-container{
+  box-shadow: 0 0 15px gray;
+}
+
+
 
 @keyframes App-logo-spin {
   from {

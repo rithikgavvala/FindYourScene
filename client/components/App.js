@@ -38,10 +38,27 @@ class App extends React.Component {
   
   render(){
     return (
-        <div>
-            <h1>THIS A TEST</h1>
-             <button onClick={this.handleClick()}> Test </button>
-             <video controls autoplay> <source src={this.videoUrl} type="video/mp4" /> </video> 
+        <div className="si-body">
+          <div className="si-header">
+            <div className="si-logo">
+              SkipIt
+            </div>
+
+
+          </div>
+            <div className="si-media-body">
+              <div className="si-header2">
+                Video Library
+
+              </div>
+
+          
+              <video controls autoplay> <source src={this.videoUrl} type="video/mp4" /> </video> 
+
+
+            </div>
+           
+             <button onClick={this.handleClick}> Test </button>
 
         </div>
      
