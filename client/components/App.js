@@ -41,7 +41,7 @@ class App extends React.Component {
         <div>
             <h1>THIS A TEST</h1>
              <button onClick={this.handleClick()}> Test </button>
-             <video src={this.videoUrl} type="video/mp4" />
+             <video controls autoplay> <source src={this.videoUrl} type="video/mp4" /> </video> 
 
         </div>
      
