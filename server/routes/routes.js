@@ -4,6 +4,8 @@ var request = require('request');
 var globalAccessToken = "";
 var globalAccountId = "7884396f-aefd-4e1a-bea2-5cfe0c55de04";
 var globalVideoName = "";
+var globalVideoId = "";
+var startendTimes = {};
 // var axios = require('axios');
 // var got = require('got');
 
@@ -24,7 +26,7 @@ router.get('/getAccessToken', (req, res) => {
         globalAccessToken = body;
         console.log("Access Token recieved");
         console.log("Global access Token is: " + globalAccessToken);
-        res.send("Success");
+        res.send("success");
   });
 });
 
@@ -43,31 +45,9 @@ router.post('/videoPost', (req,res) => {
 
     console.log(remote.body);
 
-    res.send("SUCCESS");
-
-    // var obj = JSON.parse(body);
-    // for(var i = 0; i < obj.results[obj.length - 1].length; i++) {
-    //     if(obj.results[i] == "videoId")
-    //     console.log(obj.id);
-    // }
+    res.send("success");
 
   });
-
-router.get('/getEmotionTimes', (req, res) => {
-        var options = {
-            url:"https://api.videoindexer.ai/trial/Accounts/"+globalAccountId+"/AccessToken?allowEdit=true",
-            headers: {
-              'Ocp-Apim-Subscription-Key': '5f2ad32eeb2b4077aee23c9c5de28d7f'
-            }
-          };
-        request(options, function (error, response, body) {
-            console.log(response);
-            globalAccessToken = body;
-            console.log("Access Token recieved");
-            console.log("Global access Token is: " + globalAccessToken);
-            res.send("Success")
-      });
-    });
 
 router.get('/getVideos', (req, res) => {
         var trimAccessToken = globalAccessToken.substring(1, globalAccessToken.length -1);
@@ -80,12 +60,48 @@ router.get('/getVideos', (req, res) => {
         request(options, function (error, response, body) {
             if(response.status = "200"){
                 console.log("List Videos Received");
-                console.log(response.body);
-                res.send("Videos Received");
+                var obj = JSON.parse(response.body);
+                console.log(globalVideoName);
+                for(var i = 0; i < obj.results.length; i++) {
+                        //TODO: change "test3" to globalName
+                        if(obj.results[i].name == "Monsters, Inc. - Trailer") {
+                                console.log(obj.results[i].id);
+                                globalVideoId = obj.results[i].id;
+                        }
+                }
+                res.send("success");
              }
         });
-
     });
+
+router.get('/getEmotionTimes', (req, res) => {
+    var trimAccessToken = globalAccessToken.substring(1, globalAccessToken.length -1);
+    var options = {
+        url:"https://api.videoindexer.ai/trial/Accounts/"+globalAccountId+"/Videos/"+globalVideoId+"/Index?accessToken="+trimAccessToken,
+        headers: {
+          'Ocp-Apim-Subscription-Key': '5f2ad32eeb2b4077aee23c9c5de28d7f'
+        }
+      };
+    request(options, function (error, response, body) {
+        if(response.status = "200"){
+                console.log("Get Emotions using video index");
+                var obj = JSON.parse(response.body);
+                var emotionTimes = obj.summarizedInsights.emotions[0];
+                if (emotionTimes.type == "Fear") {
+                        var times = emotionTimes.appearances;
+                        for(var i = 0; i < times.length; i++) {
+                                startendTimes[times[i].startTime] = times[i].endTime
+                        }
+                        for (var key in startendTimes) {
+                                if (startendTimes.hasOwnProperty(key)) {           
+                                    console.log(key, startendTimes[key]);
+                                }
+                        }
+                }
+                res.send(startendTimes);
+        }
+  });
+});
 
 module.exports = router;
 
