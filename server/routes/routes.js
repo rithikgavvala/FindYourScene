@@ -49,6 +49,14 @@ router.post('/videoPost', (req,res) => {
 
   });
 
+router.get('/updateVideoName', (req,res) => {
+    var url = req.url;
+    var vidName = url.split("=")[1];
+    globalVideoName = vidName;
+    console.log(globalVideoName);
+    res.send("success");
+});
+
 router.get('/getVideos', (req, res) => {
         var trimAccessToken = globalAccessToken.substring(1, globalAccessToken.length -1);
         var options = {
@@ -63,8 +71,7 @@ router.get('/getVideos', (req, res) => {
                 var obj = JSON.parse(response.body);
                 console.log(globalVideoName);
                 for(var i = 0; i < obj.results.length; i++) {
-                        //TODO: change "test3" to globalName
-                        if(obj.results[i].name == "Monsters, Inc. - Trailer") {
+                        if(obj.results[i].name == globalVideoName) {
                                 console.log(obj.results[i].id);
                                 globalVideoId = obj.results[i].id;
                         }
