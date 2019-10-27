@@ -1,3 +1,3 @@
-## Find Your Scene
+## SkipIt!
 
-Creating a web app to better help you stream your content and allow you to find specific actions and objects in your favorite Disney Movies.
+A web application to allow children stream films and be able to censor scary scenes
